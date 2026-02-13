@@ -1,0 +1,18 @@
+networks:
+  fintech-net:          # Red lógica para todos los servicios (Rabbit, Accounts, Notifications, Postgres)
+    driver: bridge      # Tipo de red por defecto para desarrollo local
+
+services:
+  rabbitmq:             # Nombre del servicio y hostname dentro de la red docker
+    image: rabbitmq:3.13-management   # Imagen oficial con UI web de administración
+    container_name: fintech-rabbitmq  # Nombre legible del contenedor (para Docker Desktop)
+    ports:
+      - "5672:5672"     # Host 5672 -> Contenedor 5672 (AMQP, conexión de las apps)
+      - "15672:15672"   # Host 15672 -> Contenedor 15672 (UI web)
+    networks:
+      - fintech-net     # Conectado a la red fintech-net
+    healthcheck:        # Chequeo de salud para saber si RabbitMQ está listo
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
