@@ -21,8 +21,8 @@ Fintech.E2E/
 | Component | Version |
 |---|---|
 | .NET | 8.0 |
-| xUnit | latest |
-| Docker Compose | RabbitMQ 3.x |
+| xUnit | 2.5.3 |
+| Docker Compose | RabbitMQ 3.13 |
 
 ## Commands
 
